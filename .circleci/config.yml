@@ -1,0 +1,86 @@
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    - image: circleci/node:10
+
+version: 2.1
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install dependencies
+          command: npm i
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - save_cache:
+          key: install-cache-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ./packages
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Check code syntax
+          command: npm run lint
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: install-cache-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Test
+          command: npm t
+  publish:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: bundle-cache-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Set NPM tokens
+          command: echo -e $NPMRC > ~/.npmrc
+      - run:
+          name: Install published
+          command: sudo npm i -g published
+      - run:
+          name: Publish to NPM
+          command: ./scripts/foreach.sh published
+
+workflows:
+  version: 2.1
+  ci-cd:
+    jobs:
+      - install:
+          context: globalenv
+      - lint:
+          requires:
+            - install
+      - test:
+          context: globalenv
+          requires:
+            - install
+      - publish:
+          context: globalenv
+          requires:
+            - test
+            - lint
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master

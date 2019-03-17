@@ -1,0 +1,26 @@
+{
+  "name": "@omrilotan/routes",
+  "version": "0.0.0",
+  "description": "Out-of-the-box expressjs routes",
+  "author": "omrilotan",
+  "homepage": "https://omrilotan.com/routes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git"
+  },
+  "scripts": {
+    "postinstall": "./scripts/foreach.sh \"npm i\"",
+    "test": "find . | grep spec.js | grep \"$1\" | grep -v node_modules | xargs echo \"./spec.js $@\" | xargs mocha --full-trace --timeout 60000",
+    "lint": "eslint '*.js' '**/*.js' -c .eslintrc"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "dont-look-up": "^1.0.0",
+    "eslint": "^5.15.2",
+    "express": "^4.16.4",
+    "mocha": "^6.0.2",
+    "node-fetch": "^2.3.0"
+  },
+  "private": true
+}
