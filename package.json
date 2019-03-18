@@ -10,6 +10,7 @@
     "url": "git+https://github.com/omrilotan/routes.git"
   },
   "scripts": {
+    "start": "node --experimental-modules app",
     "postinstall": "./scripts/foreach.sh \"npm i\"",
     "test": "find . | grep spec.js | grep \"$1\" | grep -v node_modules | xargs echo \"./spec.js $@\" | xargs mocha --full-trace --timeout 60000",
     "lint": "eslint '*.js' '**/*.js' -c .eslintrc"
@@ -20,6 +21,7 @@
     "eslint": "^5.15.2",
     "express": "^4.16.4",
     "mocha": "^6.0.2",
+    "module-scope": "0.0.0",
     "node-fetch": "^2.3.0"
   },
   "private": true
