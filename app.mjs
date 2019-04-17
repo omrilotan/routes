@@ -1,9 +1,8 @@
 import express from 'express';
 import fs from 'fs';
-import scope from 'module-scope';
 import {join} from 'path';
-
-const {__dirname} = scope(import.meta.url);
+import ping from './packages/ping';
+import index from './packages/index';
 
 process.on('unhandledRejection', console.error);
 const {promises: {lstat, readdir}} = fs;
@@ -18,40 +17,29 @@ app.set('x-powered-by', false);
 app.set('etag', () => null);
 
 const {PORT = 1337} = process.env;
+const respond = (request, response) => response.send('-');
 
 (async() => {
-	const base = join(__dirname, 'packages');
-	const routes = await lsdir(base);
-	const clean = route => route.replace(base, '');
-	const li = str => `• ${str}`;
-
-	async function addRoute(route) {
-		const {default: handler} = await import(route);
-		app.get(
-			clean(route),
-			handler
-		);
-	}
-
-	app.get('/', (request, response, next) => {
-		response
-			.status(200)
-			.type('text/html')
-			.send(
-				routes
-					.map(clean)
-					.map(route => `<li><a href="${route}">${route}</a></li>`)
-					.join('\n')
-			);
+	app.use(({url, method}, response, next) => {
+		console.log(method, url);
+		next();
 	});
 
-	await Promise.all(routes.map(addRoute));
+	app.get('/ping', ping);
+	app.get('/users/:user_id', respond);
+	app.patch('/users/:user_id', respond);
+	app.delete('/users/:user_id', respond);
+	app.get('/users', respond);
+	app.post('/users', respond);
+	app.all('*', index(app, (method, path) => !['/ping', '*'].includes(path)).route);
+
 
 	const server = app.listen(
 		PORT,
-		() => console.log([
-			`Listening on http://0.0.0.0:${server._connectionKey.split(':').pop()} with routes:`,
-			...routes.map(clean).map(li),
-		].join('\n'))
+		() => console.log(
+			`Listening on http://localhost:${server._connectionKey.split(':').pop()} with routes:`,
+			'\n',
+			index(app, (method, path) => path !== '*')
+		)
 	);
 })();

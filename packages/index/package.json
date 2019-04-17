@@ -1,0 +1,26 @@
+{
+  "name": "@routes/index",
+  "version": "1.1.0",
+  "description": "📇 An index of routes exposed by Express app",
+  "keywords": [
+    "express",
+    "route",
+    "index",
+    "glossary",
+    "list",
+    "API",
+    "📇"
+  ],
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git",
+    "directory": "packages/index"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@recursive/assign": "^1.2.3",
+    "@recursive/flatten": "^1.0.1"
+  }
+}

@@ -12,19 +12,21 @@
   "scripts": {
     "start": "node --experimental-modules app",
     "postinstall": "./scripts/foreach.sh \"npm i\"",
-    "test": "mocha 'spec.js' '**/spec.js' --recursive --exclude 'node_modules'",
-    "lint": "eslint '*.js' '**/*.js' -c .eslintrc"
+    "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'",
+    "lint": "eslint '**/*.js' -c .eslintrc"
   },
   "devDependencies": {
     "@omrilotan/eslint-config": "0.0.0",
     "chai": "^4.2.0",
+    "deep-equal-in-any-order": "^1.0.13",
     "dont-look-up": "^1.0.0",
     "eslint": "^5.16.0",
-    "eslint-plugin-log": "^1.0.0",
+    "eslint-plugin-log": "^1.0.1",
     "express": "^4.16.4",
     "mocha": "^6.1.2",
     "module-scope": "^1.0.0",
     "node-fetch": "^2.3.0"
   },
-  "private": true
+  "private": true,
+  "dependencies": {}
 }
