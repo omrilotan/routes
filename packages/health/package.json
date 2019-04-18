@@ -1,0 +1,20 @@
+{
+  "name": "@routes/health",
+  "version": "1.0.0",
+  "description": "💪 health check route",
+  "keywords": [
+    "express",
+    "route",
+    "health",
+    "check",
+    "💪"
+  ],
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git",
+    "directory": "packages/health"
+  },
+  "main": "index.js"
+}

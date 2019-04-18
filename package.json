@@ -16,6 +16,7 @@
     "lint": "eslint '**/*.js' -c .eslintrc"
   },
   "devDependencies": {
+    "@lets/wait": "^1.0.0",
     "@omrilotan/eslint-config": "0.0.0",
     "chai": "^4.2.0",
     "deep-equal-in-any-order": "^1.0.13",

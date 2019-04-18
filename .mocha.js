@@ -2,6 +2,7 @@ const express = require('express');
 const fetch = require('node-fetch');
 const chai = require('chai');
 const deepEqualInAnyOrder = require('deep-equal-in-any-order');
+const wait = require('@lets/wait');
 chai.use(deepEqualInAnyOrder);
 
 Object.assign(
@@ -11,6 +12,7 @@ Object.assign(
 	{
 		express,
 		fetch,
+		wait,
 	}
 );
 

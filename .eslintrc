@@ -7,7 +7,8 @@
 			"files": [ "**/spec.js" ],
 			"globals": {
 				"express": true,
-				"fetch": true
+				"fetch": true,
+				"wait": true
 			}
 		}
 	]
