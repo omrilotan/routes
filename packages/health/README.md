@@ -1,4 +1,4 @@
-# @routes/health <a href="https://www.npmjs.com/package/@routes/health"><img src="https://img.shields.io/npm/v/@routes/health.svg"></a> [![](https://img.shields.io/badge/source--000000.svg?logo=github&style=social)](https://github.com/omrilotan/routes/tree/master/packages/index)
+# @routes/health <a href="https://www.npmjs.com/package/@routes/health"><img src="https://img.shields.io/npm/v/@routes/health.svg"></a> [![](https://img.shields.io/badge/source--000000.svg?logo=github&style=social)](https://github.com/omrilotan/routes/tree/master/packages/health)
 
 ## 💪 health check route
 
@@ -28,7 +28,7 @@ app.get('/health', health(healthCheck));
 - 2nd argument is an options object:
 
 | Name | Type | Default | Meaning
-| - | - | -
+| - | - | - | -
 | timeout | Number | 10,000 | The number of milliseconds to wait between test fail and process.exit action
 | logger | Object | console | A logger object containing `error` function that can accept an Error object
 
