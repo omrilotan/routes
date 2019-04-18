@@ -1,6 +1,6 @@
 {
   "name": "@routes/index",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "📇 An index of routes exposed by Express app",
   "keywords": [
     "express",

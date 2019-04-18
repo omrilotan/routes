@@ -27,6 +27,5 @@
     "module-scope": "^1.0.0",
     "node-fetch": "^2.3.0"
   },
-  "private": true,
-  "dependencies": {}
+  "private": true
 }

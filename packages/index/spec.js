@@ -72,4 +72,17 @@ describe('index', () => {
 	it('Should have "route" entry non enumerable', () => {
 		expect(routes).not.to.have.keys(['route']);
 	});
+	it('Should expose "flat" getter', () => {
+		expect(routes.flat).to.be.an('array');
+	});
+	it('Should have "flat" entry non enumerable', () => {
+		expect(routes).not.to.have.keys(['flat']);
+	});
+	it('Should get a flat list of all routes', () => {
+		expect(routes.flat).to.include('/users');
+		expect(routes.flat).to.include('/users/:user_id');
+	});
+	it('Should dedup routes from flat list', () => {
+		expect(routes.flat).to.deep.equalInAnyOrder(['/users', '/users/:user_id']);
+	});
 });

@@ -3,3 +3,6 @@
 
 # 1.1.0 - 2019-04-18
 ## 'should' option can specify whether the list page should be displayed
+
+# 1.2.0 - 2019-04-18
+## 'flat' getter for a flat paths list (no methods)

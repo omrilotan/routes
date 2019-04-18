@@ -64,6 +64,13 @@ index(app);
 | -
 | ![](https://user-images.githubusercontent.com/516342/56299759-93583e80-612c-11e9-8136-7f6bf66c4cac.png)
 
+#### Get a flat list of routes (no methods) (* de-duped)
+```js
+const {flat} = index(app);
+
+flat // ['/users', '/users/:user_id']
+```
+
 #### Show API consumers an index for 404 message
 ```js
 const {route} = index(
