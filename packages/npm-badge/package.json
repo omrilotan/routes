@@ -1,0 +1,25 @@
+{
+  "name": "@routes/npm-badge",
+  "version": "0.0.0-wip",
+  "description": "🎫 Create an NPM badge",
+  "keywords": [
+    "express",
+    "route",
+    "NPM",
+    "badge",
+    "🎫"
+  ],
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git",
+    "directory": "packages/npm-badge"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "human-readable-numbers": "^0.9.5",
+    "node-fetch": "^2.5.0",
+    "paraphrase": "^1.7.0"
+  }
+}
