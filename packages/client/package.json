@@ -1,0 +1,21 @@
+{
+  "name": "@routes/client",
+  "version": "0.0.0",
+  "description": "💁‍♂️ Display information about the request and service",
+  "keywords": [
+    "express",
+    "route",
+    "info",
+    "client",
+    "request information",
+    "💁‍♂️"
+  ],
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git",
+    "directory": "packages/client"
+  },
+  "main": "index.js"
+}

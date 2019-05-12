@@ -10,7 +10,7 @@ describe('npm-badge', () => {
 	});
 	after(() => server.close());
 
-	it('Response should include input text', async() => {
+	xit('Response should include input text', async() => {
 		const moduleName = '@babel/plugin-proposal-decorators';
 		const response = await fetch(`http://0.0.0.0:3337/npm-badge?name=${moduleName}`).then(response => response.text());
 		expect(response).to.include(`>${moduleName}`);

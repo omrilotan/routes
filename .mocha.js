@@ -4,6 +4,7 @@ const chai = require('chai');
 const deepEqualInAnyOrder = require('deep-equal-in-any-order');
 const wait = require('@lets/wait');
 chai.use(deepEqualInAnyOrder);
+const abuser = require('abuser');
 
 Object.assign(
 	global,
@@ -13,6 +14,7 @@ Object.assign(
 		express,
 		fetch,
 		wait,
+		abuser,
 	}
 );
 
