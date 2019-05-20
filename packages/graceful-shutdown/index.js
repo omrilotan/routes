@@ -23,8 +23,8 @@ module.exports = function gracefulShutdown(server, {timeout = 10000, logger = co
 	}
 
 	let callback = () => {
-		shutdown({server, timeout, log});
 		callback = () => null;
+		shutdown({server, timeout, log});
 	};
 
 	process.stdin.resume();
