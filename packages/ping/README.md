@@ -7,3 +7,8 @@ const ping = require('@routes/ping');
 
 app.get('/ping', ping);
 ```
+
+Returns
+ - status code: `200`
+ - content type: `plain/text`
+ - response body: `pong`

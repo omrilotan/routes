@@ -1,6 +1,6 @@
 {
   "name": "@routes/ping",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "🏓 out-of-the-box expressjs ping route",
   "keywords": [
     "express",

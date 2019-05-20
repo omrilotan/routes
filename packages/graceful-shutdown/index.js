@@ -1,4 +1,10 @@
 /**
+ * State
+ * @type {Boolean}
+ */
+let started = false;
+
+/**
  * Register signal termination to shut service down gracefully
  * @param  {Server} server  Express Server
  * @param  {Number} [options.timeout=10000]
@@ -22,10 +28,7 @@ module.exports = function gracefulShutdown(server, {timeout = 10000, logger = co
 		typeof code === 'number' && process.exit(code);
 	}
 
-	let callback = () => {
-		callback = () => null;
-		shutdown({server, timeout, log});
-	};
+	const callback = () => shutdown({server, timeout, log});
 
 	process.stdin.resume();
 	[
@@ -42,6 +45,8 @@ module.exports = function gracefulShutdown(server, {timeout = 10000, logger = co
  * @return {undefined}
  */
 async function shutdown({server, timeout, log}) {
+	if (started) { return; }
+	started = true;
 	logStart({server, timeout, log});
 
 	try {
