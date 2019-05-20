@@ -44,7 +44,7 @@ describe('health', async() => {
 	});
 	after(() => {
 		process.kill = kill;
-		setTimeout(() => process.exit(0), 2000);
+		setTimeout(() => process.exit(0), 1000);
 	});
 
 	it('Should call process.kill after timeout has expired', async() => {
