@@ -1,0 +1,20 @@
+{
+  "name": "@routes/graceful-shutdown",
+  "version": "0.0.0",
+  "description": "💀 Shut down gracefully",
+  "keywords": [
+    "express",
+    "graceful-shutdown",
+    "SIGTERM",
+    "rolling service",
+    "💀"
+  ],
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git",
+    "directory": "packages/graceful-shutdown"
+  },
+  "main": "index.js"
+}
