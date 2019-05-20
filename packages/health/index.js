@@ -66,8 +66,8 @@ function shutdown(delay) {
 
 	isShuttingDown = true;
 
-	setTimeout(() => process.exit(0), delay);
-
+	setTimeout(
+		() => process.kill(process.pid, 'SIGTERM'),
+		delay
+	);
 }
-
-process.on('SIGTERM', shutdown);

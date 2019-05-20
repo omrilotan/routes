@@ -1,6 +1,6 @@
 {
   "name": "@routes/health",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "💪 health check route",
   "keywords": [
     "express",

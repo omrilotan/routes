@@ -4,7 +4,7 @@
 
 Pass in a method checking application and/or machine health. If any error occur - the function should throw an error if anything is wrong.
 
-If anything is wrong - the route will return error code (503) and exit the process with code 0 (`process.exit(0)`)
+If anything is wrong - the route will return error code (503) and calls the process to fire `SIGTERM`
 
 #### Expose a health route with health check
 ```js

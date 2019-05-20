@@ -3,6 +3,7 @@ import fs from 'fs';
 import {join} from 'path';
 import ping from './packages/ping';
 import index from './packages/index';
+import health from './packages/health';
 import client from './packages/client';
 
 process.on('unhandledRejection', console.error);
@@ -27,6 +28,7 @@ const respond = (request, response) => response.send('-');
 	});
 
 	app.get('/ping', ping);
+	app.get('/health', health);
 	app.get('/client', client());
 	app.get('/users/:user_id', respond);
 	app.patch('/users/:user_id', respond);

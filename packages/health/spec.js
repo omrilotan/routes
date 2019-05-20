@@ -4,7 +4,7 @@ const called = {
 	send: [],
 	status: [],
 	error: [],
-	exit: [],
+	kill: [],
 	next: [],
 };
 
@@ -26,10 +26,10 @@ const logger = {error: (...args) => push('error', ...args)};
 const _next = (...args) => push('next', ...args);
 
 describe('health', async() => {
-	const {exit} = process;
+	const {kill} = process;
 	const {error} = console;
 	before(() => {
-		process.exit = (...args) => push('exit', ...args);
+		process.kill = (...args) => push('kill', ...args);
 	});
 	beforeEach(() => {
 		delete require.cache[require.resolve('.')];
@@ -43,10 +43,10 @@ describe('health', async() => {
 		console.error = error; // eslint-disable-line no-console
 	});
 	after(() => {
-		process.exit = exit;
+		process.kill = kill;
 	});
 
-	it('Should call process.exit after timeout has expired', async() => {
+	it('Should call process.kill after timeout has expired', async() => {
 		const route = health(
 			() => { throw new Error(); },
 			{
@@ -55,15 +55,15 @@ describe('health', async() => {
 			}
 		);
 		await route(request, response, _next);
-		const {exit} = called;
+		const {kill} = called;
 
-		expect(exit).to.be.lengthOf(0);
+		expect(kill).to.be.lengthOf(0);
 		await wait(50);
-		expect(exit).to.be.lengthOf(0);
-		await wait(100);
-		expect(exit).to.be.lengthOf(1);
+		expect(kill).to.be.lengthOf(0);
+		await wait(150);
+		expect(kill).to.be.lengthOf(2);
 	});
-	it('Should not exit process if no error was thrown', async() => {
+	it('Should not kill process if no error was thrown', async() => {
 		const route = health(
 			() => null,
 			{
@@ -72,10 +72,10 @@ describe('health', async() => {
 			}
 		);
 		await route(request, response, _next);
-		const {exit} = called;
+		const {kill} = called;
 
 		await wait(100);
-		expect(exit).to.be.lengthOf(0);
+		expect(kill).to.be.lengthOf(0);
 	});
 	it('Should log error to passed in logger', async() => {
 		const route = health(
