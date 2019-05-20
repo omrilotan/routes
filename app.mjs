@@ -1,11 +1,12 @@
 import express from 'express';
 import fs from 'fs';
-import {join} from 'path';
+import { join } from 'path';
 import ping from './packages/ping';
 import index from './packages/index';
 import health from './packages/health';
 import client from './packages/client';
 import graceful from './packages/graceful-shutdown';
+import time from './packages/time';
 
 process.on('unhandledRejection', console.error);
 const {promises: {lstat, readdir}} = fs;
@@ -22,7 +23,28 @@ app.set('etag', () => null);
 const {PORT = 1337} = process.env;
 const respond = (request, response) => response.send('-');
 
+const sanitise = str => String(str).replace(/\W/g, '_').toLowerCase();
+
+const timer = time(({
+    method,
+    route,
+    status,
+    duration,
+}) => console.log(
+    'route statistics',
+    [
+        'method',
+        method,
+        'route',
+        route,
+        'status',
+        status,
+    ].map(sanitise).join('.'),
+    duration
+));
+
 (async() => {
+	app.use(timer);
 	app.use(({url, method}, response, next) => {
 		console.log(method, url);
 		next();

@@ -1,0 +1,22 @@
+{
+  "name": "@routes/time",
+  "version": "1.0.0",
+  "description": "⏱ middleware to report route time",
+  "keywords": [
+    "express",
+    "middleware",
+    "time",
+    "measure",
+    "stats",
+    "⏱"
+  ],
+  "homepage": "https://github.com/omrilotan/routes/tree/master/packages/time#readme",
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git",
+    "directory": "packages/time"
+  },
+  "main": "index.js"
+}

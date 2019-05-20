@@ -10,8 +10,8 @@
     "url": "git+https://github.com/omrilotan/routes.git"
   },
   "scripts": {
-    "start": "node --experimental-modules app",
-    "inspect": "node --experimental-modules --inspect app",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node app",
+    "inspect": "node --experimental-modules --es-module-specifier-resolution=node --inspect app",
     "postinstall": "./scripts/foreach.sh \"npm i\"",
     "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'",
     "lint": "eslint '**/*.js' -c .eslintrc"
