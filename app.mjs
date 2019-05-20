@@ -5,6 +5,7 @@ import ping from './packages/ping';
 import index from './packages/index';
 import health from './packages/health';
 import client from './packages/client';
+import graceful from './packages/graceful-shutdown';
 
 process.on('unhandledRejection', console.error);
 const {promises: {lstat, readdir}} = fs;
@@ -30,6 +31,7 @@ const respond = (request, response) => response.send('-');
 	app.get('/ping', ping);
 	app.get('/health', health);
 	app.get('/client', client());
+	app.get('/wait/:delay', ({params: {delay = 0}}, response) => setTimeout(() => response.status(200).type('txt').send(delay), Number(delay)));
 	app.get('/users/:user_id', respond);
 	app.patch('/users/:user_id', respond);
 	app.delete('/users/:user_id', respond);
@@ -46,4 +48,6 @@ const respond = (request, response) => response.send('-');
 			index(app, (method, path) => path !== '*')
 		)
 	);
+
+	graceful(server);
 })();
