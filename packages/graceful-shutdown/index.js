@@ -12,6 +12,8 @@ let started = false;
  * @return {undefined}
  */
 module.exports = function gracefulShutdown(server, {timeout = 10000, logger = console} = {}) {
+	const sockets = new Set();
+
 	/**
 	 * Call on logger method safely
 	 * @param  {String} type    Logger method to call on
@@ -28,7 +30,10 @@ module.exports = function gracefulShutdown(server, {timeout = 10000, logger = co
 		typeof code === 'number' && process.exit(code);
 	}
 
-	const callback = () => shutdown({server, timeout, log});
+	const callback = () => shutdown({server, timeout, log, sockets});
+
+	// Manage sockets for timing them out later
+	server.on('connection', socket => collect(socket, sockets));
 
 	process.stdin.resume();
 	[
@@ -38,18 +43,33 @@ module.exports = function gracefulShutdown(server, {timeout = 10000, logger = co
 };
 
 /**
+ * Collect socket in the sockets set, with self removal
+ * @param  {Socket} socket
+ * @param  {Set}    sockets
+ * @return {undefined}
+ */
+function collect(socket, sockets) {
+	sockets.add(socket);
+	socket.on('end', () => sockets.delete(socket));
+}
+
+/**
  * Shutdown gracefully (delayed event)
  * @param  {Server}   options.server
  * @param  {Number}   options.timeout
  * @param  {Function} options.log
  * @return {undefined}
  */
-async function shutdown({server, timeout, log}) {
+async function shutdown({server, timeout, log, sockets}) {
 	if (started) { return; }
 	started = true;
 	logStart({server, timeout, log});
 
+	log('info', `Setting timeout of ${timeout} for ${sockets.size} sockets`);
+	sockets.forEach(socket => socket.setTimeout(timeout));
+
 	try {
+		log('info', 'Asking server to close');
 		server.close(
 			() => log(
 				'info',

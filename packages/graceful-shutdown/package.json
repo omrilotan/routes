@@ -1,11 +1,13 @@
 {
   "name": "@routes/graceful-shutdown",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "💀 Shut down gracefully",
   "keywords": [
-    "express",
+    "server",
     "graceful-shutdown",
     "SIGTERM",
+    "socket termination",
+    "express",
     "rolling service",
     "💀"
   ],
