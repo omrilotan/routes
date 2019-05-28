@@ -39,6 +39,7 @@ graceful(server, {
 6. Process exists with an exit code 1
 
 ## Controlled module
+In case you wish to apply termination interruption yourself, use `procedure` interface:
 ```js
 const { procedure } = require('@routes/graceful-shutdown');
 
@@ -48,6 +49,11 @@ const callback = procedure(server, {
 	onsuccess: () => null,
 	onfail: () => null,
 });
+
+// Apply procedure to termination
+process.stdin.resume();
+process.on('SIGTERM', callback);
+process.on('SIGINT', callback);
 ```
 
 | option | type | meaning | default
