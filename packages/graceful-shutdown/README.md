@@ -38,7 +38,7 @@ graceful(server, {
 5. After `timeout` passes - an error log is printed with the amount of connection that will be forcefully terminated
 6. Process exists with an exit code 1
 
-## Controlled module
+## Procedure as a module
 In case you wish to apply termination interruption yourself, use `procedure` interface:
 ```js
 const { procedure } = require('@routes/graceful-shutdown');
