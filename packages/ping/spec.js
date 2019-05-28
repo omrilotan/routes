@@ -22,14 +22,6 @@ describe('ping', async() => {
 		expect(await response.text()).to.equal('pong');
 	});
 	it('Should not return JSON', async() => {
-		let result = false;
-
-		try {
-			await response.json();
-		} catch (error) {
-			result = true;
-		}
-
-		assert(result);
+		expect(response.json).to.throw();
 	});
 });

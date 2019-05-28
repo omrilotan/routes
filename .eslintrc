@@ -4,12 +4,14 @@
 	],
 	"overrides": [
 		{
-			"files": [ "**/spec.js" ],
+			"files": [ "**/spec.js", "**/stubs.js" ],
 			"globals": {
 				"express": true,
 				"fetch": true,
 				"wait": true,
-				"abuser": true
+				"abuser": true,
+				"stub": true,
+				"spy": true
 			}
 		}
 	]

@@ -59,7 +59,16 @@ const timer = time(({
 	app.delete('/users/:user_id', respond);
 	app.get('/users', respond);
 	app.post('/users', respond);
-	app.all('*', index(app, (method, path) => !['/ping', '*'].includes(path)).route);
+
+	app.all(
+		'*',
+		index(
+			app,
+			{
+				filter: (method, path) => !['/ping', '*'].includes(path)
+			}
+		).route
+	);
 
 
 	const server = app.listen(
@@ -67,9 +76,25 @@ const timer = time(({
 		() => console.log(
 			`Listening on http://localhost:${server._connectionKey.split(':').pop()} with routes:`,
 			'\n',
-			index(app, (method, path) => path !== '*')
+			index(
+				app,
+				{
+					filter: (method, path) => path !== '*'
+				}
+			)
 		)
 	);
 
-	graceful(server);
+	graceful(server, {timeout: 3000});
+
+	server.on(
+		'connection',
+		(socket, start = Date.now()) => ['close', 'error', 'timeout'].forEach(
+			event => socket.on(
+				event,
+				() => console.debug(`Socket terminated after ${Date.now() - start}ms on ${event} event`)
+			)
+		)
+	);
+
 })();

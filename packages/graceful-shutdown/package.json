@@ -1,7 +1,7 @@
 {
   "name": "@routes/graceful-shutdown",
-  "version": "1.1.0",
-  "description": "💀 Shut down gracefully",
+  "version": "1.2.0",
+  "description": "💀 Shut down server gracefully",
   "keywords": [
     "server",
     "graceful-shutdown",
