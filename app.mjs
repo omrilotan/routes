@@ -44,6 +44,7 @@ const timer = time(({
 ));
 
 (async() => {
+	let server;
 	app.use(timer);
 	app.use(({url, method}, response, next) => {
 		console.log(method, url);
@@ -51,7 +52,7 @@ const timer = time(({
 	});
 
 	app.get('/ping', ping);
-	app.get('/health', health);
+	// app.get('/health', health);
 	app.get('/client', client());
 	app.get('/wait/:delay', ({params: {delay = 0}}, response) => setTimeout(() => response.status(200).type('txt').send(delay), Number(delay)));
 	app.get('/users/:user_id', respond);
@@ -59,17 +60,46 @@ const timer = time(({
 	app.delete('/users/:user_id', respond);
 	app.get('/users', respond);
 	app.post('/users', respond);
-	app.all('*', index(app, (method, path) => !['/ping', '*'].includes(path)).route);
+	app.get(
+		'/health',
+		(request, response) => response.status(server.shuttingDown ? 503 : 200).end()
+	);
+
+	app.all(
+		'*',
+		index(
+			app,
+			{
+				filter: (method, path) => !['/ping', '*'].includes(path)
+			}
+		).route
+	);
 
 
-	const server = app.listen(
+	server = app.listen(
 		PORT,
 		() => console.log(
 			`Listening on http://localhost:${server._connectionKey.split(':').pop()} with routes:`,
 			'\n',
-			index(app, (method, path) => path !== '*')
+			index(
+				app,
+				{
+					filter: (method, path) => path !== '*'
+				}
+			)
 		)
 	);
 
-	graceful(server);
+	graceful(server, {timeout: 10000});
+
+	server.on(
+		'connection',
+		(socket, start = Date.now()) => ['close', 'error', 'timeout'].forEach(
+			event => socket.on(
+				event,
+				() => console.debug(`Socket terminated after ${Date.now() - start}ms on ${event} event`)
+			)
+		)
+	);
+
 })();
