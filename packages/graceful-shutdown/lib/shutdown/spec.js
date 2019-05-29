@@ -14,6 +14,7 @@ describe('graceful-shutdown/lib/shutdown', () => {
 		shutdown = require('.');
 	});
 	afterEach(() => {
+		delete server.shuttingDown;
 		getConnections.reset();
 		forceShutdown.reset();
 		onsuccess.reset();
@@ -40,6 +41,11 @@ describe('graceful-shutdown/lib/shutdown', () => {
 		await shutdown({server, timeout, logger, sockets, onsuccess, onfail});
 		expect(server.close).to.have.been.called;
 		server.close.reset();
+		await shutdown({server, timeout, logger, sockets});
+		expect(server.close).to.not.have.been.called;
+	});
+	it('Should call server.close unless server.shuttingDown is true', async() => {
+		server.shuttingDown = true;
 		await shutdown({server, timeout, logger, sockets});
 		expect(server.close).to.not.have.been.called;
 	});
