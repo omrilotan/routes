@@ -31,7 +31,7 @@ graceful(server, {
 
 ## What happens on process termination?
 1. Process termination is interrupted
-2. Open connections are reset with a new timeout to allow them to close in time
+2. Open connections are instructed to end (FIN packet) and receive a new timeout to allow them to close in time
 3. The server is firing a close function
 4. After correct closing the process exists with exit code 0
 	- _End correct behaviour_

@@ -17,10 +17,10 @@ module.exports = async function shutdown({server, timeout, logger, sockets, onsu
 
 	logger.info(`Setting timeout of ${timeout} for ${sockets.size} sockets`);
 	sockets.forEach(socket => {
-			socket.on('timeout', () => socket.end());
-			socket.setTimeout(
-				Math.max(timeout - 10, 0)
-			);
+		socket.on('timeout', () => socket.end());
+		socket.setTimeout(
+			Math.max(timeout - 10, 0)
+		);
 	});
 
 	try {
