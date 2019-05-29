@@ -62,7 +62,7 @@ const timer = time(({
 	app.post('/users', respond);
 	app.get(
 		'/health',
-		(request, response) => response.status(200).end() // server.shuttingDown ? 503 : 200
+		(request, response) => response.status(server.shuttingDown ? 503 : 200).end()
 	);
 
 	app.all(

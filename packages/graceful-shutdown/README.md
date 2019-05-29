@@ -62,3 +62,14 @@ process.on('SIGINT', callback);
 | `logger` | Object | Object with `info`, and `error` functions (supports async loggers) | `console`
 | `onsuccess` | Function | Callback when shutdown finished correctly | `process.exit(0)`
 | `onsuccess` | Function | Callback when shutdown finished incorrectly | `process.exit(1)`
+
+## `server.shuttingDown`
+After shutdown has initiated, the attribute `shuttingDown` is attached to server with value of `true`.
+
+User can query this value on service to know not to send any more requests to the service
+```js
+app.get(
+	'/health',
+	(request, response) => response.status(server.shuttingDown ? 503 : 200).end()
+);
+```
