@@ -12,7 +12,7 @@
   "scripts": {
     "start": "node --experimental-modules --es-module-specifier-resolution=node app",
     "inspect": "node --experimental-modules --es-module-specifier-resolution=node --inspect app",
-    "postinstall": "./scripts/foreach.sh \"npm i\"",
+    "postinstall": "dirdo packages npm i",
     "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'",
     "lint": "eslint '**/*.js' -c .eslintrc"
   },
@@ -22,6 +22,7 @@
     "abuser": "^2.0.1",
     "chai": "^4.2.0",
     "deep-equal-in-any-order": "^1.0.13",
+    "dirdo": "0.0.0",
     "dont-look-up": "^1.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-log": "^1.2.0",
