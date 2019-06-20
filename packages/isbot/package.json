@@ -1,0 +1,25 @@
+{
+  "name": "@routes/isbot",
+  "version": "1.0.0",
+  "description": "🕷 Express middleware to detect crawler requests: request.isbot",
+  "keywords": [
+    "express",
+    "middleware",
+    "bot",
+    "crawler",
+    "detection",
+    "🕷"
+  ],
+  "homepage": "https://github.com/omrilotan/routes/tree/master/packages/ping#readme",
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git",
+    "directory": "packages/ping"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "isbot": "^2.3.0"
+  }
+}
