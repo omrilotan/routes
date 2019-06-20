@@ -34,4 +34,11 @@ describe('isbot', async() => {
 
 		expect(request.isbot).to.be.false;
 	});
+	[
+		'extend',
+		'exclude',
+	].forEach(fn => it(
+		'Should have all isbot methods',
+		() => expect(isbot[fn]).to.be.a('function')
+	));
 });

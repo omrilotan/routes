@@ -14,3 +14,5 @@ module.exports = function crawlerRequest(request, response, next) {
 
 	next();
 };
+
+Object.assign(module.exports, isbot);
