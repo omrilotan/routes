@@ -10,13 +10,13 @@
     "detection",
     "🕷"
   ],
-  "homepage": "https://github.com/omrilotan/routes/tree/master/packages/ping#readme",
+  "homepage": "https://github.com/omrilotan/routes/tree/master/packages/isbot#readme",
   "author": "omrilotan",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/omrilotan/routes.git",
-    "directory": "packages/ping"
+    "directory": "packages/isbot"
   },
   "main": "index.js",
   "dependencies": {
