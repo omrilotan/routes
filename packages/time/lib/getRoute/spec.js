@@ -1,9 +1,26 @@
 const getRoutePath = require('.');
 
-describe('stats/lib/getRoutePath', () => {
+const app = express();
+let server;
+
+describe('time/lib/getRoutePath', () => {
+	before(() => {
+		const cb = (request, response) => {
+			response.send(
+				getRoutePath(request)
+			);
+		};
+		app.get('/v1/route_name/:metric/:value?', cb);
+		app.use(cb);
+		server = app.listen(3456);
+	});
+	after(() => {
+		server.close(() => null);
+	});
+
 	it('defaults to empty string', () => {
-		expect(getRoutePath()).to.equal('');
-		expect(getRoutePath({path: ''})).to.equal('');
+		expect(getRoutePath()).to.equal('*');
+		expect(getRoutePath({path: ''})).to.equal('*');
 		expect(getRoutePath({route: {path: ''}})).to.equal('');
 	});
 	it('Extracts route path from request object', () => {
@@ -22,5 +39,13 @@ describe('stats/lib/getRoutePath', () => {
 			},
 		};
 		expect(getRoutePath(mockRequest)).to.equal('/root/directory/path.ext');
+	});
+	it('Should get the route value', async() => {
+		const route = await fetch('http://localhost:3456/v1/route_name/my-metric/twelve').then(res => res.text());
+		expect(route).to.equal('/v1/route_name/:metric/:value?');
+	});
+	it('Should return wildcard when no route pattern matches', async() => {
+		const route = await fetch('http://localhost:3456/some/route').then(res => res.text());
+		expect(route).to.equal('*');
 	});
 });

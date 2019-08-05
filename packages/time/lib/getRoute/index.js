@@ -3,7 +3,7 @@
  * @param  {Object} request Server request (supports express)
  * @return {String} Route path
  */
-module.exports = ({baseUrl, route, path} = {}) => [
+module.exports = ({baseUrl, route = {}} = {}) => [
 	baseUrl,
-	route && route.path || path,
+	typeof route.path === 'string' ? route.path : '*',
 ].filter(Boolean).join('/');

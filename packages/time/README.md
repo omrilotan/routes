@@ -11,6 +11,8 @@ Accepts a callback function which will be called **after the response has ended*
 | status | Number | Status Code
 | duration | Number | The duration of handling the request in milliseconds (in floating point nanoseconds accuracy)
 
+If a no route pattern matches the request - the route will equal `*`
+
 ```js
 const time = require('@routes/time');
 
