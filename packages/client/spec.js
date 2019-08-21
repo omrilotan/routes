@@ -1,4 +1,4 @@
-const app = express();
+const polka = polka();
 const client = require('.');
 const { clean } = abuser(__filename);
 
@@ -6,7 +6,7 @@ describe('client', () => {
 	let server;
 
 	before(() => {
-		app.get('/client', client());
+		polka.get('/client', (req, res) => client()(req, res));
 		server = app.listen(3456);
 	});
 	after(() => {
