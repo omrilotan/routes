@@ -57,10 +57,8 @@ module.exports = function client() {
 			info
 		);
 
-		response
-			.status(200)
-			.type('txt')
-			.send(JSON.stringify(info, keys, 2));
+		response.statusCode = 200
+		response.end(JSON.stringify(info, keys, 2));
 	};
 };
 
