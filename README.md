@@ -3,7 +3,6 @@
 ## 🎁 Out-of-the-box expressjs routes
 
 - [client](./packages/client#readme) 💁‍♂️ Display information about the client making the request
-- [graceful-shutdown](./packages/graceful-shutdown#readme) 💀 Shut down server gracefully
 - [index](./packages/index#readme) 📇 An index of routes exposed by Express app
 - [isbot](./packages/isbot#readme) 🕷 Express middleware to detect crawler requests: request.isbot
 - [ping](./packages/ping#readme) 🏓 out-of-the-box expressjs ping route

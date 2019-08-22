@@ -5,7 +5,6 @@ import ping from './packages/ping';
 import index from './packages/index';
 import health from './packages/health';
 import client from './packages/client';
-import graceful from './packages/graceful-shutdown';
 import time from './packages/time';
 
 process.on('unhandledRejection', console.error);
@@ -89,8 +88,6 @@ const timer = time(({
 			)
 		)
 	);
-
-	graceful(server, {timeout: 10000});
 
 	server.on(
 		'connection',
