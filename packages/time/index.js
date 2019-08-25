@@ -32,9 +32,9 @@ module.exports = function timeMiddleware(callback) {
 			const route = getRoute(request) || 'unknown';
 			const method = request.method || 'unknown';
 			const status = response.statusCode || 0;
-			const s = Number(start);
-			const e = Number(process.hrtime.bigint());
-			const duration = (e - s) / 1e6; // convert nanoseconds to milliseconds
+			const s = start;
+			const e = process.hrtime.bigint();
+			const duration = Number(e - s) / 1e6; // convert nanoseconds to milliseconds
 
 			callback({
 				method,
