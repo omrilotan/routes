@@ -1,0 +1,21 @@
+{
+  "name": "safe-set-header",
+  "version": "1.0.0",
+  "description": "🤯 make ServerResponse.setHeader idempotent for HttpServer",
+  "keywords": [
+    "server",
+    "setHeader",
+    "response",
+    "idempotent",
+    "🤯"
+  ],
+  "homepage": "https://github.com/omrilotan/routes/tree/master/packages/safe-set-header#readme",
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/routes.git",
+    "directory": "packages/safe-set-header"
+  },
+  "main": "index.js"
+}
