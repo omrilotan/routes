@@ -6,7 +6,7 @@ module.exports = function crawlerRequest(request, response, next) {
 	function get() {
 		return is = typeof is === 'boolean'
 			?	is
-			: isbot(request.headers['user-agent'])
+			: isbot(request.get('user-agent'))
 		;
 	}
 
