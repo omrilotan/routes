@@ -40,6 +40,13 @@ describe('time/lib/getRoutePath', () => {
 		};
 		expect(getRoutePath(mockRequest)).to.equal('/root/directory/path.ext');
 	});
+	it('Drops baseUrl when route handler is not available', () => {
+		const mockRequest = {
+			baseUrl: '/root',
+			route: undefined,
+		};
+		expect(getRoutePath(mockRequest)).to.equal('*');
+	});
 	it('Should get the route value', async() => {
 		const route = await fetch('http://localhost:3456/v1/route_name/my-metric/twelve').then(res => res.text());
 		expect(route).to.equal('/v1/route_name/:metric/:value?');

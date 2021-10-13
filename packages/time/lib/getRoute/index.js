@@ -3,10 +3,13 @@
  * @param  {Object} request Server request (supports express)
  * @return {String} Route path
  */
-module.exports = ({baseUrl, route = {}} = {}) => [
-	baseUrl,
-	getPath(route),
-].filter(Boolean).join('/');
+module.exports = ({baseUrl, route} = {}) => route
+	? [
+		baseUrl,
+		getPath(route),
+	].filter(Boolean).join('/')
+	: '*'
+;
 
 /**
  * Gets path route string or array

@@ -1,6 +1,6 @@
 {
   "name": "@routes/isbot",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "🕷 Express middleware to detect crawler requests: request.isbot",
   "keywords": [
     "express",
