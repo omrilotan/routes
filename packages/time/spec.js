@@ -27,7 +27,7 @@ describe('@routes/time', () => {
 	it('measures the route', async() => {
 		await fetch(`http://127.0.0.1:${port}/user/234`);
 		const [ {
-			duration, method, route, status, request, response
+			duration, method, route, status, request, response,
 		} ] = mesaurements;
 		expect(duration).to.be.at.least(100);
 		expect(method).to.equal('GET');
