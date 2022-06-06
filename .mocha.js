@@ -23,4 +23,5 @@ Object.assign(
 	}
 );
 
-process.on('unhandledRejection', error => { throw error; });
+process.on('unhandledRejection', error => { console.error(error); process.exit(1); });
+process.on('uncaughtException', (error, origin) => { console.error(error, origin); process.exit(1); });
