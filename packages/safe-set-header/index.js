@@ -12,7 +12,7 @@ const METHODS = [
 module.exports = (
 	{
 		log = () => null,
-	} = {}
+	} = {},
 ) => METHODS.forEach(
 	method => {
 		const original = ServerResponse.prototype[method];
@@ -20,12 +20,12 @@ module.exports = (
 		ServerResponse.prototype[method] = function(...args) {
 			if (this.headersSent) {
 				log(
-					new Error(`Tried to call ${method} with arguments: ${args.join(', ')} - but response headers are already set.`)
+					new Error(`Tried to call ${method} with arguments: ${args.join(', ')} - but response headers are already set.`),
 				);
 			} else {
 				original.apply(this, args);
 			}
 			return this;
 		};
-	}
+	},
 );

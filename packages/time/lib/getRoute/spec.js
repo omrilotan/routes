@@ -1,27 +1,26 @@
-const getRoutePath = require('.');
+const getRoute = require('.');
 
 const app = express();
 let server;
+let port;
 
-describe('time/lib/getRoutePath', () => {
+describe('time/lib/getRoute', () => {
 	before(() => {
 		const cb = (request, response) => {
 			response.send(
-				getRoutePath(request)
+				getRoute(request),
 			);
 		};
 		app.get('/v1/route_name/:metric/:value?', cb);
 		app.use(cb);
-		server = app.listen(3456);
-	});
-	after(() => {
-		server.close(() => null);
+		server = app.listen();
+		port = server.address().port;
 	});
 
 	it('defaults to empty string', () => {
-		expect(getRoutePath()).to.equal('*');
-		expect(getRoutePath({path: ''})).to.equal('*');
-		expect(getRoutePath({route: {path: ''}})).to.equal('');
+		expect(getRoute()).to.equal('*');
+		expect(getRoute({ path: '' })).to.equal('*');
+		expect(getRoute({ route: { path: '' } })).to.equal('');
 	});
 	it('Extracts route path from request object', () => {
 		const mockRequest = {
@@ -29,7 +28,7 @@ describe('time/lib/getRoutePath', () => {
 				path: 'directory/path.ext',
 			},
 		};
-		expect(getRoutePath(mockRequest)).to.equal('directory/path.ext');
+		expect(getRoute(mockRequest)).to.equal('directory/path.ext');
 	});
 	it('Prefixes the baseUrl from request object', () => {
 		const mockRequest = {
@@ -38,21 +37,21 @@ describe('time/lib/getRoutePath', () => {
 				path: 'directory/path.ext',
 			},
 		};
-		expect(getRoutePath(mockRequest)).to.equal('/root/directory/path.ext');
+		expect(getRoute(mockRequest)).to.equal('/root/directory/path.ext');
 	});
 	it('Drops baseUrl when route handler is not available', () => {
 		const mockRequest = {
 			baseUrl: '/root',
 			route: undefined,
 		};
-		expect(getRoutePath(mockRequest)).to.equal('*');
+		expect(getRoute(mockRequest)).to.equal('*');
 	});
 	it('Should get the route value', async() => {
-		const route = await fetch('http://localhost:3456/v1/route_name/my-metric/twelve').then(res => res.text());
+		const route = await fetch(`http://localhost:${port}/v1/route_name/my-metric/twelve`).then(res => res.text());
 		expect(route).to.equal('/v1/route_name/:metric/:value?');
 	});
 	it('Should return wildcard when no route pattern matches', async() => {
-		const route = await fetch('http://localhost:3456/some/route').then(res => res.text());
+		const route = await fetch(`http://localhost:${port}/some/route`).then(res => res.text());
 		expect(route).to.equal('*');
 	});
 });

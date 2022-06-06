@@ -28,15 +28,15 @@ const FIELDS = [
 const getInfo = request => Object.keys(request.headers).reduce(
 	(accumulator, header) => Object.assign(
 		accumulator,
-		{[`headers.${header}`]: request.headers[header]}
+		{ [`headers.${header}`]: request.headers[header] },
 	),
 	FIELDS.reduce(
 		(accumulator, item) => Object.assign(
 			accumulator,
-			{[item]: request[item]}
+			{ [item]: request[item] },
 		),
-		{}
-	)
+		{},
+	),
 );
 
 /**
@@ -54,7 +54,7 @@ module.exports = function client() {
 		const info = getInfo(request);
 		const keys = getKeys(
 			Object.keys(request.query),
-			info
+			info,
 		);
 
 		response
@@ -71,7 +71,7 @@ function getKeys(requested, info) {
 
 	if (requested.includes('headers') || requested.includes('headers.*')) {
 		requested.push(
-			...Object.keys(info).filter(key => key.startsWith('headers.'))
+			...Object.keys(info).filter(key => key.startsWith('headers.')),
 		);
 	}
 

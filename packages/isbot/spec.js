@@ -4,22 +4,23 @@ describe('isbot', async() => {
 	let app;
 	let server;
 	let request;
+	let port;
 	before(async() => {
 		app = express();
 		app.use(isbot);
-		server = app.listen(3337);
-		app.get('/ping', (_request, response) => {
+		server = app.listen();
+		port = server.address().port;
+		app.get('*', (_request, response) => {
 			request = _request;
 			response.sendStatus(200);
 		});
 	});
 	beforeEach(async() => {
-		await fetch('http://0.0.0.0:3337/ping');
+		await fetch(`http://0.0.0.0:${port}/something`);
 	});
 	afterEach(() => {
 		request = null;
 	});
-	after(() => server.close());
 
 	it('Should find if isbot from request', async() => {
 		request.headers['user-agent'] = 'Googlebot';
@@ -39,6 +40,6 @@ describe('isbot', async() => {
 		'exclude',
 	].forEach(fn => it(
 		'Should have all isbot methods',
-		() => expect(isbot[fn]).to.be.a('function')
+		() => expect(isbot[fn]).to.be.a('function'),
 	));
 });

@@ -3,7 +3,7 @@
  * @param  {Object} request Server request (supports express)
  * @return {String} Route path
  */
-module.exports = ({baseUrl, route} = {}) => route
+module.exports = ({ baseUrl, route } = {}) => route
 	? [
 		baseUrl,
 		getPath(route),

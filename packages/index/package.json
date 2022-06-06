@@ -1,6 +1,6 @@
 {
   "name": "@routes/index",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "📇 An index of routes exposed by Express app",
   "keywords": [
     "express",
@@ -21,7 +21,7 @@
   },
   "main": "index.js",
   "dependencies": {
-    "@recursive/assign": "^1.2.3",
+    "@recursive/assign": "^1.2.5",
     "@recursive/flatten": "^1.0.1"
   }
 }
