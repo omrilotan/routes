@@ -7,7 +7,7 @@ module.exports = ({ baseUrl, route } = {}) => route
 	? [
 		baseUrl,
 		getPath(route),
-	].filter(Boolean).join('/')
+	].filter(Boolean).join('/').replace(/\/+/g, '/')
 	: '*'
 ;
 

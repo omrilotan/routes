@@ -1,10 +1,11 @@
 const getRoute = require('.');
 
 const app = express();
+const router = express.Router();
 let server;
 let port;
 
-describe('time/lib/getRoute', () => {
+describe('@routes/time/lib/getRoute', () => {
 	before(() => {
 		const cb = (request, response) => {
 			response.send(
@@ -12,6 +13,9 @@ describe('time/lib/getRoute', () => {
 			);
 		};
 		app.get('/v1/route_name/:metric/:value?', cb);
+		app.get([ '/one', '/two' ], cb);
+		router.route('/:user_id').get(cb);
+		app.use('/user/', router);
 		app.use(cb);
 		server = app.listen();
 		port = server.address().port;
@@ -53,5 +57,13 @@ describe('time/lib/getRoute', () => {
 	it('Should return wildcard when no route pattern matches', async() => {
 		const route = await fetch(`http://localhost:${port}/some/route`).then(res => res.text());
 		expect(route).to.equal('*');
+	});
+	it('Should recognise array routes and return the first route', async() => {
+		const route = await fetch(`http://localhost:${port}/two`).then(res => res.text());
+		expect(route).to.equal('/one');
+	});
+	it('Should recognise router route and consolidate the result', async() => {
+		const route = await fetch(`http://localhost:${port}/user/1234`).then(res => res.text());
+		expect(route).to.equal('/user/:user_id');
 	});
 });

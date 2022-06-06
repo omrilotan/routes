@@ -1,3 +1,9 @@
+# 2.1.0
+## 2022-06-06
+- Replace "request.end" monkey-patch with on "finish" listener
+- Fix double slashes on router routes
+- Add "request" and "response" to measurement arguments
+
 # 2.0.3
 ## 2021-10-13
 Default to "*" if route is not defined

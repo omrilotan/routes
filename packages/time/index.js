@@ -16,19 +16,7 @@ module.exports = function timeMiddleware(callback) {
 	 */
 	return function middleware(request, response, next) {
 		const start = process.hrtime.bigint();
-		const responseEnd = response.end && response.end.bind(response); // Shadow end request
-
-		/**
-		 * Monkey-patch response end
-		 * @param  {...Any} args
-		 * @return {undefined}
-		 */
-		response.end = function end(...args) {
-
-			// Call the response end function (release the application)
-			responseEnd && responseEnd(...args);
-
-			// Now lets start computing
+		function measure() {
 			const route = getRoute(request) || 'unknown';
 			const method = request.method || 'unknown';
 			const status = response.statusCode || 0;
@@ -41,8 +29,13 @@ module.exports = function timeMiddleware(callback) {
 				route,
 				status,
 				duration,
+				request,
+				response,
 			});
-		};
+		}
+
+		response.on('finish', measure);
+
 		next();
 	};
 };
