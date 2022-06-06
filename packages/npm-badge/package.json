@@ -19,7 +19,7 @@
   "main": "index.js",
   "dependencies": {
     "human-readable-numbers": "^0.9.5",
-    "node-fetch": "^2.5.0",
-    "paraphrase": "^1.7.0"
+    "node-fetch": "^3.2.5",
+    "paraphrase": "^3.0.0"
   }
 }

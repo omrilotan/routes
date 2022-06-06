@@ -2,7 +2,7 @@ const sort = require('.');
 
 describe('index/sort', () => {
 	it('Should be a sort function', () => {
-		const array = ['- [x] /c', '- [x] /b', '- [x] /a'];
+		const array = [ '- [x] /c', '- [x] /b', '- [x] /a' ];
 		expect(array.sort(sort)).to.deep.equal(array.reverse());
 	});
 	it('Should sort by third word name', () => {

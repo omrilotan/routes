@@ -1,6 +1,6 @@
+const flatten = require('@recursive/flatten');
 const extract = require('./lib/extract');
 const route = require('./lib/route');
-const flatten = require('@recursive/flatten');
 
 /**
  * Get app routes index and 404 route
@@ -9,13 +9,13 @@ const flatten = require('@recursive/flatten');
  * @param  {Function} [options.should] Serve the 404 page
  * @return {Object}
  */
-module.exports = (app, {filter, should} = {}) => {
-	const result = extract(app, {filter});
+module.exports = (app, { filter, should } = {}) => {
+	const result = extract(app, { filter });
 	Object.defineProperties(
 		result,
 		{
 			route: {
-				value: route(result, {should}),
+				value: route(result, { should }),
 				enumerable: false,
 				configurable: true,
 				writable: true,
@@ -25,15 +25,15 @@ module.exports = (app, {filter, should} = {}) => {
 					new Set(
 						flatten(
 							Object.values(
-								result
-							)
-						)
-					)
+								result,
+							),
+						),
+					),
 				),
 				enumerable: false,
 				configurable: true,
 			},
-		}
+		},
 	);
 
 	return result;

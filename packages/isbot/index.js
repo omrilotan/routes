@@ -1,5 +1,6 @@
 const isbot = require('isbot');
-const defaultProps = ['length', 'name', 'arguments', 'caller', 'prototype'];
+
+const defaultProps = [ 'length', 'name', 'arguments', 'caller', 'prototype' ];
 
 module.exports = function crawlerRequest(request, response, next) {
 	let is;
@@ -19,8 +20,8 @@ module.exports = function crawlerRequest(request, response, next) {
 Object.assign(
 	module.exports,
 	...Object.getOwnPropertyNames(isbot).filter(
-		prop => !defaultProps.includes(prop)
+		prop => !defaultProps.includes(prop),
 	).map(
-		prop => ({ [prop]: isbot[prop] })
-	)
+		prop => ({ [prop]: isbot[prop] }),
+	),
 );

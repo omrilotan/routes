@@ -24,17 +24,17 @@ describe('index/route', () => {
 
 	it('Should format a message listing all available routes', () => {
 		route({
-			get: ['*', '/ping', '/users', '/users/:user_id'],
-			post: ['/users', '/users/:user_id'],
-			put: ['/users/:user_id'],
-			delete: ['/users/:user_id'],
+			get: [ '*', '/ping', '/users', '/users/:user_id' ],
+			post: [ '/users', '/users/:user_id' ],
+			put: [ '/users/:user_id' ],
+			delete: [ '/users/:user_id' ],
 		})(
 			request,
 			response,
-			next
+			next,
 		);
 
-		const [content] = called.send;
+		const [ content ] = called.send;
 		expect(content).to.equal([
 			'404 error - Could not find route [GET] /index',
 			'Here is a list of available routes:',
@@ -50,22 +50,22 @@ describe('index/route', () => {
 	});
 	it('Should not respond if headers were already sent', () => {
 		route(
-			{get: ['*', '/ping', '/users', '/users/:user_id']}
+			{ get: [ '*', '/ping', '/users', '/users/:user_id' ] },
 		)(
 			request,
-			Object.assign({headersSent: true}, response),
-			next
+			Object.assign({ headersSent: true }, response),
+			next,
 		);
 		expect(called.send).to.be.empty;
 	});
 	it('Should call next function when "should" condition is falsy', () => {
 		route(
-			{get: ['*', '/ping', '/users', '/users/:user_id']},
-			{should: () => false}
+			{ get: [ '*', '/ping', '/users', '/users/:user_id' ] },
+			{ should: () => false },
 		)(
 			request,
 			response,
-			next
+			next,
 		);
 	});
 });

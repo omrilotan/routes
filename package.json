@@ -9,28 +9,29 @@
     "type": "git",
     "url": "git+https://github.com/omrilotan/routes.git"
   },
+  "workspaces": [
+    "./packages/*"
+  ],
   "scripts": {
+    "init": "npm i -ws",
     "start": "node --experimental-modules --es-module-specifier-resolution=node app",
     "inspect": "node --experimental-modules --es-module-specifier-resolution=node --inspect app",
-    "postinstall": "dirdo packages npm i",
     "test": "mocha '**/spec.js' --require .mocha.js --recursive --exclude 'node_modules'",
     "lint": "eslint '**/*.js' -c .eslintrc"
   },
   "devDependencies": {
-    "@lets/wait": "^1.0.0",
-    "@omrilotan/eslint-config": "0.0.0",
+    "@lets/wait": "^2.0.2",
+    "@omrilotan/eslint-config": "^1.4.0",
     "abuser": "^2.0.1",
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "deep-equal-in-any-order": "^1.0.13",
-    "dirdo": "0.0.0",
-    "dont-look-up": "^1.0.0",
-    "eslint": "^5.16.0",
+    "eslint": "^8.17.0",
     "eslint-plugin-log": "^1.2.0",
     "express": "^4.17.1",
-    "mocha": "^6.1.4",
+    "mocha": "^10.0.0",
     "module-scope": "^1.0.0",
-    "node-fetch": "^2.6.0",
-    "sinon": "^7.3.2",
+    "sinon": "^14.0.0",
     "sinon-chai": "^3.3.0"
   },
   "private": true

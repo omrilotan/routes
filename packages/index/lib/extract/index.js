@@ -6,23 +6,23 @@ const assign = require('@recursive/assign');
  * @param  {Function} [options.filter]
  * @return {Object}
  */
-module.exports = ({_router: {stack}}, {filter = () => true} = {}) => assign(
+module.exports = ({ _router: { stack } }, { filter = () => true } = {}) => assign(
 	{},
 	...stack
 		.map(
-			({route}) => route
+			({ route }) => route,
 		)
 		.filter(Boolean)
 		.map(
-			({path, methods}) => assign(
+			({ path, methods }) => assign(
 				{},
 				...Object.keys(methods)
 					.filter(
-						method => filter(method, path)
+						method => filter(method, path),
 					)
 					.map(
-						method => ({[method]: [path]})
-					)
-			)
-		)
+						method => ({ [method]: [ path ] }),
+					),
+			),
+		),
 );

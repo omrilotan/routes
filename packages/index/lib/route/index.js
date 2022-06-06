@@ -7,15 +7,15 @@ const sort = require('../sort');
  * @param  {Function} [options.should] Condition for sending the 404 page
  * @return {Fucntion}                  Express route handler
  */
-module.exports = (index, {should = () => true} = {}) => {
+module.exports = (index, { should = () => true } = {}) => {
 	const routes = flatten(
 		Object.entries(index)
 			.map(
-				([method, routes]) => routes
+				([ method, routes ]) => routes
 					.map(
-						route => `- [${method.toUpperCase()}] ${route}`
-					)
-			)
+						route => `- [${method.toUpperCase()}] ${route}`,
+					),
+			),
 	);
 
 	routes.sort(sort);
@@ -37,7 +37,7 @@ module.exports = (index, {should = () => true} = {}) => {
 			return;
 		}
 
-		const {url, method} = request;
+		const { url, method } = request;
 
 		const message = [
 			`404 error - Could not find route [${method.toUpperCase()}] ${url}`,

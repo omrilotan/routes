@@ -1,6 +1,8 @@
-const {METHODS} = require('http');
+const { METHODS } = require('http');
+
 const methods = METHODS.map(m => m.toLowerCase());
 const exract = require('.');
+
 const noop = () => null;
 const fixture = app => {
 	app.get('/ping', noop);
@@ -16,7 +18,6 @@ const fixture = app => {
 	app.delete('/users/:user_id', noop);
 };
 
-
 describe('index/extract', () => {
 	it('Should extract routes from app', () => {
 		const app = express();
@@ -24,11 +25,11 @@ describe('index/extract', () => {
 		const routes = exract(app);
 
 		expect(routes).to.deep.equalInAnyOrder({
-			get: ['/ping', '/users', '/users/:user_id'],
-			post: ['/users', '/users/:user_id'],
-			put: ['/users', '/users/:user_id'],
-			patch: ['/users', '/users/:user_id'],
-			delete: ['/users', '/users/:user_id'],
+			get: [ '/ping', '/users', '/users/:user_id' ],
+			post: [ '/users', '/users/:user_id' ],
+			put: [ '/users', '/users/:user_id' ],
+			patch: [ '/users', '/users/:user_id' ],
+			delete: [ '/users', '/users/:user_id' ],
 		});
 	});
 	it('Should filter routes by given function', () => {
@@ -44,15 +45,15 @@ describe('index/extract', () => {
 		];
 
 		const filter = (method, path) => !conditions.some(
-			condition => condition(method, path)
+			condition => condition(method, path),
 		);
-		const routes = exract(app, {filter});
+		const routes = exract(app, { filter });
 
 		expect(routes).to.deep.equalInAnyOrder({
-			get: ['/users', '/users/:user_id'],
-			post: ['/users', '/users/:user_id'],
-			put: ['/users', '/users/:user_id'],
-			delete: ['/users/:user_id'],
+			get: [ '/users', '/users/:user_id' ],
+			post: [ '/users', '/users/:user_id' ],
+			put: [ '/users', '/users/:user_id' ],
+			delete: [ '/users/:user_id' ],
 		});
 	});
 

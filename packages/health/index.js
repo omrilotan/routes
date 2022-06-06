@@ -31,7 +31,7 @@ module.exports = function health(
 	{
 		timeout = SHUTDOWN_TIMEOUT,
 		logger = console,
-	} = {}
+	} = {},
 ) {
 
 	/**
@@ -68,6 +68,6 @@ function shutdown(delay) {
 
 	setTimeout(
 		() => process.kill(process.pid, 'SIGTERM'),
-		delay
+		delay,
 	);
 }

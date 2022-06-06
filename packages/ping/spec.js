@@ -4,15 +4,16 @@ describe('ping', async() => {
 	let app;
 	let server;
 	let response;
+	let port;
 	before(async() => {
 		app = express();
 		app.get('/ping', ping);
-		server = app.listen(3337);
+		server = await app.listen();
+		port = server.address().port;
 	});
 	beforeEach(async() => {
-		response = await fetch('http://0.0.0.0:3337/ping');
+		response = await fetch(`http://0.0.0.0:${port}/ping`);
 	});
-	after(() => server.close());
 
 	it('Should respond with 200 status code, ok', () => {
 		expect(response.status).to.equal(200);
@@ -22,6 +23,6 @@ describe('ping', async() => {
 		expect(await response.text()).to.equal('pong');
 	});
 	it('Should not return JSON', async() => {
-		expect(response.json).to.throw();
+		expect(response.json()).to.be.rejected;
 	});
 });
