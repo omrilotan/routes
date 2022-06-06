@@ -16,9 +16,8 @@ module.exports = function timeMiddleware(callback) {
 	 */
 	return function middleware(request, response, next) {
 		const start = process.hrtime.bigint();
-		response.on('finish', function () {
+		function measure() {
 			const route = getRoute(request) || 'unknown';
-			const url = request.originalUrl || request.url || 'unknown';
 			const method = request.method || 'unknown';
 			const status = response.statusCode || 0;
 			const s = start;
@@ -28,11 +27,15 @@ module.exports = function timeMiddleware(callback) {
 			callback({
 				method,
 				route,
-				url,
 				status,
 				duration,
+				request,
+				response,
 			});
-		});
+		}
+
+		response.on('finish', measure);
+
 		next();
 	};
 };
